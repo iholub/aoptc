@@ -1,4 +1,5 @@
 #!/usr/bin/lua
+
 local function main()
     print("Content-Type: text/json")
     print("")
@@ -15,3 +16,4 @@ local function main()
 end
 
 main()
+

@@ -1,0 +1,161 @@
+login as: root
+root@192.168.1.1's password:
+
+
+BusyBox v1.19.4 (2013-03-14 11:28:31 UTC) built-in shell (ash)
+Enter 'help' for a list of built-in commands.
+
+  _______                     ________        __
+ |       |.-----.-----.-----.|  |  |  |.----.|  |_
+ |   -   ||  _  |  -__|     ||  |  |  ||   _||   _|
+ |_______||   __|_____|__|__||________||__|  |____|
+          |__| W I R E L E S S   F R E E D O M
+ -----------------------------------------------------
+ ATTITUDE ADJUSTMENT (12.09, r36088)
+ -----------------------------------------------------
+  * 1/4 oz Vodka      Pour all ingredients into mixing
+  * 1/4 oz Gin        tin with ice, strain into glass.
+  * 1/4 oz Amaretto
+  * 1/4 oz Triple sec
+  * 1/4 oz Peach schnapps
+  * 1/4 oz Sour mix
+  * 1 splash Cranberry juice
+ -----------------------------------------------------
+root@OpenWrt:~#
+
+root@OpenWrt:~# df -h
+Filesystem                Size      Used Available Use% Mounted on
+rootfs                    1.1M    208.0K    880.0K  19% /
+/dev/root                 2.0M      2.0M         0 100% /rom
+tmpfs                    14.3M    520.0K     13.8M   4% /tmp
+tmpfs                   512.0K         0    512.0K   0% /dev
+/dev/mtdblock3            1.1M    208.0K    880.0K  19% /overlay
+overlayfs:/overlay        1.1M    208.0K    880.0K  19% /
+root@OpenWrt:~#
+
+
+root@OpenWrt:~# df -h
+Filesystem                Size      Used Available Use% Mounted on
+rootfs                    1.1M    212.0K    876.0K  19% /
+/dev/root                 2.0M      2.0M         0 100% /rom
+tmpfs                    14.3M    616.0K     13.7M   4% /tmp
+tmpfs                   512.0K         0    512.0K   0% /dev
+/dev/mtdblock3            1.1M    212.0K    876.0K  19% /overlay
+overlayfs:/overlay        1.1M    212.0K    876.0K  19% /
+
+Filesystem                Size      Used Available Use% Mounted on
+rootfs                    1.1M    220.0K    868.0K  20% /
+/dev/root                 2.0M      2.0M         0 100% /rom
+tmpfs                    14.3M    580.0K     13.7M   4% /tmp
+tmpfs                   512.0K         0    512.0K   0% /dev
+/dev/mtdblock3            1.1M    220.0K    868.0K  20% /overlay
+overlayfs:/overlay        1.1M    220.0K    868.0K  20% /
+
+	Package name	Version
+Remove	base-files	117-r36088
+Remove	busybox	1.19.4-6
+Remove	dnsmasq	2.62-2
+Remove	dropbear	2011.54-2
+Remove	firewall	2-55.1
+Remove	hotplug2	1.0-beta-4
+Remove	iptables	1.4.10-4
+Remove	iw	3.6-1
+Remove	jshn	2013-01-29-0bc317aa4d9af44806c28ca286d79a8b5a92b2b8
+Remove	kernel	3.3.8-1-d6597ebf6203328d3519ea3c3371a493
+Remove	kmod-ath	3.3.8+2012-09-07-3
+Remove	kmod-ath9k	3.3.8+2012-09-07-3
+Remove	kmod-ath9k-common	3.3.8+2012-09-07-3
+Remove	kmod-cfg80211	3.3.8+2012-09-07-3
+Remove	kmod-crypto-aes	3.3.8-1
+Remove	kmod-crypto-arc4	3.3.8-1
+Remove	kmod-crypto-core	3.3.8-1
+Remove	kmod-gpio-button-hotplug	3.3.8-1
+Remove	kmod-ipt-conntrack	3.3.8-1
+Remove	kmod-ipt-core	3.3.8-1
+Remove	kmod-ipt-nat	3.3.8-1
+Remove	kmod-ipt-nathelper	3.3.8-1
+Remove	kmod-leds-gpio	3.3.8-1
+Remove	kmod-ledtrig-default-on	3.3.8-1
+Remove	kmod-ledtrig-netdev	3.3.8-1
+Remove	kmod-ledtrig-timer	3.3.8-1
+Remove	kmod-ledtrig-usbdev	3.3.8-1
+Remove	kmod-lib-crc-ccitt	3.3.8-1
+Remove	kmod-mac80211	3.3.8+2012-09-07-3
+Remove	kmod-nls-base	3.3.8-1
+Remove	kmod-ppp	3.3.8-1
+Remove	kmod-pppoe	3.3.8-1
+Remove	kmod-pppox	3.3.8-1
+Remove	kmod-usb-core	3.3.8-1
+Remove	kmod-usb-ohci	3.3.8-1
+Remove	kmod-usb2	3.3.8-1
+Remove	kmod-wdt-ath79	3.3.8-1
+Remove	libblobmsg-json	2013-01-29-0bc317aa4d9af44806c28ca286d79a8b5a92b2b8
+Remove	libc	0.9.33.2-1
+Remove	libgcc	4.6-linaro-1
+Remove	libip4tc	1.4.10-4
+Remove	libiwinfo	36
+Remove	libiwinfo-lua	36
+Remove	libjson	0.9-2
+Remove	liblua	5.1.4-8
+Remove	libnl-tiny	0.1-3
+Remove	libubox	2013-01-29-0bc317aa4d9af44806c28ca286d79a8b5a92b2b8
+Remove	libubus	2013-01-13-bf566871bd6a633e4504c60c6fc55b2a97305a50
+Remove	libubus-lua	2013-01-13-bf566871bd6a633e4504c60c6fc55b2a97305a50
+Remove	libuci	2013-01-04.1-1
+Remove	libuci-lua	2013-01-04.1-1
+Remove	libxtables	1.4.10-4
+Remove	lua	5.1.4-8
+Remove	luci	0.11.1-1
+Remove	luci-app-firewall	0.11.1-1
+Remove	luci-i18n-english	0.11.1-1
+Remove	luci-lib-core	0.11.1-1
+Remove	luci-lib-ipkg	0.11.1-1
+Remove	luci-lib-nixio	0.11.1-1
+Remove	luci-lib-sys	0.11.1-1
+Remove	luci-lib-web	0.11.1-1
+Remove	luci-mod-admin-core	0.11.1-1
+Remove	luci-mod-admin-full	0.11.1-1
+Remove	luci-proto-core	0.11.1-1
+Remove	luci-proto-ppp	0.11.1-1
+Remove	luci-sgi-cgi	0.11.1-1
+Remove	luci-theme-base	0.11.1-1
+Remove	luci-theme-openwrt	0.11.1-1
+Remove	mtd	18.1
+Remove	netifd	2013-01-29.2-4bb99d4eb462776336928392010b372236ac3c93
+Remove	opkg	618-3
+Remove	ppp	2.4.5-8
+Remove	ppp-mod-pppoe	2.4.5-8
+Remove	swconfig	10
+Remove	uboot-envtools	2012.04.01-1
+Remove	ubus	2013-01-13-bf566871bd6a633e4504c60c6fc55b2a97305a50
+Remove	ubusd	2013-01-13-bf566871bd6a633e4504c60c6fc55b2a97305a50
+Remove	uci	2013-01-04.1-1
+Remove	uhttpd	2012-10-30-e57bf6d8bfa465a50eea2c30269acdfe751a46fd
+Remove	wpad-mini	20120910-1
+
+
+
+
+opkg update
+opkg install kmod-video-uvc mjpg-streamer
+
+config mjpg-streamer core
+	option enabled		"0"
+	option device		"/dev/video0"
+	option resolution	"640x480"
+	option fps		"5"
+	option www		"/www/webcam"
+	option port		"8080"
+
+	/etc/init.d/mjpg-streamer enable
+
+	root@OpenWrt:~# df -h
+Filesystem                Size      Used Available Use% Mounted on
+rootfs                    1.1M    616.0K    472.0K  57% /
+/dev/root                 2.0M      2.0M         0 100% /rom
+tmpfs                    14.3M    888.0K     13.4M   6% /tmp
+tmpfs                   512.0K         0    512.0K   0% /dev
+/dev/mtdblock3            1.1M    616.0K    472.0K  57% /overlay
+overlayfs:/overlay        1.1M    616.0K    472.0K  57% /
+
+	
