@@ -1,0 +1,212 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>Arduino Openwrt Pan/Tilt Camera</title>
+    <script src="jquery.js"></script>
+    <script type="text/javascript">
+        var cgiUrl = "cgi-bin/aoptc_lua.cgi?";
+        var ajax_request;
+        var cmdInProgress = false;
+
+        var Cmd = function (code) {
+            //this.code = code;
+            this.down = false;
+        };
+
+        var KEY_UP = 38;
+        var KEY_DOWN = 40;
+        var KEY_LEFT = 37;
+        var KEY_RIGHT = 39;
+
+        var cmdMap = {};
+        cmdMap[KEY_UP] = new Cmd();
+        cmdMap[KEY_DOWN] = new Cmd();
+        cmdMap[KEY_LEFT] = new Cmd();
+        cmdMap[KEY_RIGHT] = new Cmd();
+
+        function buildCmd() {
+            var res = "";
+            var u = cmdMap[KEY_UP].down;
+            var d = cmdMap[KEY_DOWN].down;
+            var l = cmdMap[KEY_LEFT].down;
+            var r = cmdMap[KEY_RIGHT].down;
+            if (u) {
+                res += "v0";
+            }
+            if (d) {
+                res += "v1";
+            }
+            if (l) {
+                res += "h1";
+            }
+            if (r) {
+                res += "h0";
+            }
+
+            res += "z";
+            return res;
+        }
+
+
+        var frequency = 20;
+        var polling = false;
+        var cmd;
+
+        var doKeyDown = function (e) {
+            var code = e.which;
+            if (code == 13) {
+                e.preventDefault();
+            }
+            //log("-" + code + "-");
+            var valid = false;
+            if (code in cmdMap) {
+                cmdMap[code].down = true;
+                valid = true;
+            }
+
+            if (valid) {
+
+                polling = true;
+                poll();
+            }
+            return false;
+        };
+
+        var doKeyUp = function (e) {
+            var code = e.which;
+            if (code == 13) {
+                e.preventDefault();
+            }
+            var valid = false;
+            if (code in cmdMap) {
+                cmdMap[code].down = false;
+                valid = true;
+            }
+            if (valid) {
+                polling = true;
+                poll();
+                //polling = false;
+            }
+            return false;
+        };
+
+        var poll = function () {
+            if (cmdInProgress) {
+                return;
+            }
+            var cmd = buildCmd();
+            if (cmd == "z") {
+                polling = false;
+                return;
+            }
+            $("#cmd").html(cmd);
+            cmdInProgress = true;
+            doAjax(cmd);
+        };
+
+        function doAjax(cmd) {
+            var startTime = new Date().getTime();
+            if(typeof ajax_request !== 'undefined')
+                ajax_request.abort();
+            ajax_request = $.ajax({
+                url: cgiUrl + cmd,
+                type: "GET",
+                dataType: "html",
+                cache: false,
+                timeout: 5000,
+                success: function (data, textStatus, jqXHR) {
+                    $("#resp").html(data);
+                    //log("s");
+                },
+                complete: function () {
+                    cmdInProgress = false;
+
+                    var endTime = new Date().getTime();
+                    var latency = endTime - startTime;
+					updateLatency(latency);
+                    if (polling) {
+                        var nextRun = frequency - latency;
+                        if (nextRun < 0) {
+                            nextRun = 0;
+                        }
+						setTimeout(poll, nextRun);
+                    }
+
+                },
+                error: function () {
+                    //log("e");
+                }
+            })
+        }
+
+		var latencyCmdCount = 5;
+		var latencySum = 0;
+		var latencyList = new Array();
+		
+		function updateLatency(latency) {
+			latencyList.push(latency);
+			latencySum += latency;
+			var arrLength = latencyList.length;
+			if (arrLength > latencyCmdCount) {
+				latencySum -= latencyList.shift();
+			}
+			var avgLatency = latencySum / arrLength;
+            $("#latency").html(latency);
+			$("#avg_latency").html(avgLatency);
+
+		}
+
+        function log(str) {
+            $("#log").append(str);
+        }
+
+        $(document).ready(function () {
+            //log( "ready!" );
+
+            $("body").keydown(doKeyDown);
+            $("body").keyup(doKeyUp);
+
+        });
+
+    </script>
+</head>
+<body>
+<table border="0">
+<tr>
+	<td>cmd:</td><td><span id="cmd"></span></td>
+</tr>
+<tr>
+	<td>latency:</td><td><span id="latency"></span></td>
+</tr>
+<tr>
+	<td>avg latency:</td><td><span id="avg_latency"></span></td>
+</tr>
+<tr>
+	<td>response:</td><td><pre id="resp"></pre></td>
+</tr>
+</table>
+<p>
+    <img id="camera" src="http://192.168.2.50:8080/?action=stream"/>
+
+<p/>
+
+<table>
+    <tr>
+        <td>
+            <button type="button">Forward</button>
+            <br>
+            <button type="button">Left</button>
+            <button type="button">Right</button>
+            <br>
+            <button type="button">Backward</button>
+
+        </td>
+    </tr>
+</table>
+
+<div id="log">
+</div>
+
+</body>
+</html>
