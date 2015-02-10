@@ -7,6 +7,8 @@ stty -F /dev/ttyUSB0 cs8 115200 ignbrk -brkint -icrnl -imaxbel -opost -onlcr -is
 
 #/www/cgi-bin/read-serial.sh
 
-/www/cgi-bin/aoptc-read-serial.sh
+/www/cgi-bin/aoptc-read-serial.sh &
+
+/usr/bin/mjpg_streamer -i "input_uvc.so -d /dev/video1 -f 20 -r 640x480" -o "output_http.so --www /www/webcam --port 8081" 2> /dev/null &
 
 exit 0

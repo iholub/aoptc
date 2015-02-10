@@ -151,7 +151,7 @@
 			if (arrLength > latencyCmdCount) {
 				latencySum -= latencyList.shift();
 			}
-			var avgLatency = latencySum / arrLength;
+			var avgLatency = Math.round(latencySum / arrLength);
             $("#latency").html(latency);
 			$("#avg_latency").html(avgLatency);
 
@@ -167,30 +167,46 @@
             $("body").keydown(doKeyDown);
             $("body").keyup(doKeyUp);
 
+            var hostname = window.location.hostname;
+            if (hostname.indexOf("192.168.") != 0) {
+                var cam1 = "http://" + hostname + ":" + 9080 + "/?action=stream";
+                var cam2 = "http://" + hostname + ":" + 9081 + "/?action=stream";
+                console.log(cam1);
+                console.log(cam2);
+                $("#camera1").attr("src", cam1);
+                $("#camera2").attr("src", cam2);
+            }
         });
 
     </script>
 </head>
 <body>
 <table border="0">
+    <tr>
+        <th>cmd</th>
+        <th>latency</th>
+        <th>avg latency</th>
+    </tr>
 <tr>
-	<td>cmd:</td><td><span id="cmd"></span></td>
-</tr>
-<tr>
-	<td>latency:</td><td><span id="latency"></span></td>
-</tr>
-<tr>
-	<td>avg latency:</td><td><span id="avg_latency"></span></td>
-</tr>
-<tr>
-	<td>response:</td><td><pre id="resp"></pre></td>
+	<td><span id="cmd"></span></td>
+	<td><span id="latency"></span></td>
+	<td><span id="avg_latency"></span></td>
 </tr>
 </table>
-<p>
-    <img id="camera" src="http://192.168.2.50:8080/?action=stream"/>
+<table>
+    <tr>
+        <td>
+            <img id="camera1" src="http://192.168.2.50:8080/?action=stream"/>
+        </td>
+        <td>
+            <img id="camera2" src="http://192.168.2.50:8081/?action=stream"/>
+        </td>
+    </tr>
+</table>
 
 <p/>
 
+<!--
 <table>
     <tr>
         <td>
@@ -204,6 +220,7 @@
         </td>
     </tr>
 </table>
+-->
 
 <div id="log">
 </div>
